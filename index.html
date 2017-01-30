@@ -1,0 +1,98 @@
+<html>
+<title>Register</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <div style="width: 500px; margin: auto">
+    <h2>Register</h2>
+    <form id="user_form">
+      <fieldset class="form-group">
+         <label for="name" class="sr-only">Name</label>
+         <input class="form-control" id="name" placeholder="Enter name">
+      </fieldset>
+      <fieldset class="form-group">
+         <label for="email" class="sr-only">Email address</label>
+         <input type="email" class="form-control" id="email" placeholder="Enter email">
+      </fieldset>
+      <fieldset class="form-group">
+         <label for="password" class="sr-only">Password</label>
+         <input type="password" class="form-control" id="password" placeholder="Password">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <div class="alert alert-success" id="showRegMessage">
+        Registration successful
+    </div>
+    <div class="alert alert-danger" id="showRegError">
+        Registration failed
+    </div>
+    <script>
+    $("#showRegMessage").hide();
+    $("#showRegError").hide();
+    </script>
+    <h2>Confirm</h2>
+    <form id="confirm_form">
+      <fieldset class="form-group">
+         <label for="email" class="sr-only">Email address</label>
+         <input type="email" class="form-control" id="email" placeholder="Enter email">
+      </fieldset>
+      <fieldset class="form-group">
+         <label for="code" class="sr-only">Password</label>
+         <input type="code" class="form-control" id="code" placeholder="Confirmation Code">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+    <div class="alert alert-success" id="showConfirmMessage">
+        Confirmation successful
+    </div>
+    <div class="alert alert-danger" id="showConfirmError">
+        Confirmation failed
+    </div>
+    <script>
+    $("#showConfirmMessage").hide();
+    $("#showConfirmError").hide();
+    </script>
+  </div>
+</body>
+<script src="//serverless-assets.s3-website-us-east-1.amazonaws.com/jsbn.js"></script>
+<script src="//serverless-assets.s3-website-us-east-1.amazonaws.com/jsbn2.js"></script>
+<script src="//serverless-assets.s3-website-us-east-1.amazonaws.com/sjcl.js"></script>
+<script src="//serverless-assets.s3-website-us-east-1.amazonaws.com/moment.js"></script>
+<script src="//serverless-assets.s3-website-us-east-1.amazonaws.com/aws-cognito-sdk.min.js"></script>
+<script src="//serverless-assets.s3-website-us-east-1.amazonaws.com/amazon-cognito-identity.min.js"></script>
+<script src="//serverless-assets.s3-website-us-east-1.amazonaws.com/aws-sdk.min.js"></script>
+<script src="register.js"></script>
+<script>
+$("#user_form").submit(function (event) {
+  $("#showRegMessage").hide();
+  $("#showRegError").hide();
+  $("#showConfirmMessage").hide();
+  $("#showConfirmError").hide();
+  console.log('Starting the signup process');
+  var user = {};
+  user.name = $('#user_form #name').val();
+  user.email = $('#user_form #email').val();
+  user.password = $('#user_form #password').val();
+  doSignup(user);
+  $("#user_form")[0].reset();
+  event.preventDefault();
+});
+$("#confirm_form").submit(function (event) {
+  $("#showRegMessage").hide();
+  $("#showRegError").hide();
+  $("#showConfirmMessage").hide();
+  $("#showConfirmError").hide();
+  console.log('Starting the confirmation process');
+  var user = {};
+  user.email = $('#confirm_form #email').val();
+  user.code = $('#confirm_form #code').val();
+  doConfirm(user);
+  $("#confirm_form")[0].reset();
+  event.preventDefault();
+});
+</script>
+
+</html>
