@@ -40,8 +40,8 @@
          <input type="email" class="form-control" id="email" placeholder="Enter email">
       </fieldset>
       <fieldset class="form-group">
-         <label for="code" class="sr-only">Password</label>
-         <input type="code" class="form-control" id="code" placeholder="Confirmation Code">
+         <label for="code" class="sr-only">Code</label>
+         <input type="code" class="form-control" id="code" placeholder="Confirmation code">
       </fieldset>
       <button type="submit" class="btn btn-primary">Confirm</button>
     </form>
@@ -54,6 +54,28 @@
     <script>
     $("#showConfirmMessage").hide();
     $("#showConfirmError").hide();
+    </script>
+    <h2>Login</h2>
+    <form id="login_form">
+      <fieldset class="form-group">
+         <label for="email" class="sr-only">Email address</label>
+         <input type="email" class="form-control" id="email" placeholder="Enter email">
+      </fieldset>
+      <fieldset class="form-group">
+         <label for="password" class="sr-only">Password</label>
+         <input type="password" class="form-control" id="password" placeholder="Password">
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <div class="alert alert-success" id="showLoginMessage">
+        Login successful
+    </div>
+    <div class="alert alert-danger" id="showLoginError">
+        Login failed
+    </div>
+    <script>
+    $("#showLoginMessage").hide();
+    $("#showLoginError").hide();
     </script>
   </div>
 </body>
@@ -71,6 +93,8 @@ $("#user_form").submit(function (event) {
   $("#showRegError").hide();
   $("#showConfirmMessage").hide();
   $("#showConfirmError").hide();
+  $("#showLoginError").hide();
+  $("#showLoginMessage").hide();
   console.log('Starting the signup process');
   var user = {};
   user.name = $('#user_form #name').val();
@@ -85,12 +109,29 @@ $("#confirm_form").submit(function (event) {
   $("#showRegError").hide();
   $("#showConfirmMessage").hide();
   $("#showConfirmError").hide();
+  $("#showLoginError").hide();
+  $("#showLoginMessage").hide();
   console.log('Starting the confirmation process');
   var user = {};
   user.email = $('#confirm_form #email').val();
   user.code = $('#confirm_form #code').val();
   doConfirm(user);
   $("#confirm_form")[0].reset();
+  event.preventDefault();
+});
+$("#login_form").submit(function (event) {
+  $("#showRegMessage").hide();
+  $("#showRegError").hide();
+  $("#showConfirmMessage").hide();
+  $("#showConfirmError").hide();
+  $("#showLoginError").hide();
+  $("#showLoginMessage").hide();
+  console.log('Starting the login process');
+  var user = {};
+  user.email = $('#login_form #email').val();
+  user.password = $('#login_form #password').val();
+  doLogin(user);
+  $("#login_form")[0].reset();
   event.preventDefault();
 });
 </script>

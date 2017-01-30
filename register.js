@@ -51,4 +51,32 @@ function doConfirm(user) {
        $("#showConfirmMessage").show();
      }
   });
+};
+
+function doLogin(user) {
+  var userAuth = {
+    Username: user.email,
+    Password: user.password
+  }
+  var userAuthDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(userAuth);
+
+  var userData = {
+     Username: user.email,
+     Pool: userPool
+  };
+
+  var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+
+  cognitoUser.authenticateUser(userAuthDetails, {
+     onSuccess: (result) => {
+        // write to local session storage?
+        $("#showLoginMessage").show();
+        console.log('Login success!')
+     },
+     onFailure: (err) => {
+        $("#showLoginError").show();
+        console.log(err);
+
+     }
+  });
 }
